@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DHIS2 Dynamic Modules Experiment</title>
+  <meta name="importmap-type" content="systemjs-importmap" />
+  <script type="systemjs-importmap">
+    {
+      "imports": {
+        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.8.2/lib/system/single-spa.min.js",
+        "react": "https://cdn.jsdelivr.net/npm/react@17.0.1/umd/react.production.min.js",
+        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@17.0.1/umd/react-dom.production.min.js",
+        "single-spa-react": "./shell/vendor.single-spa-react.js",
+        "@dhis2/app-runtime": "./shell/vendor.dhis2-app-runtime.js",
+        "@dhis2/d2-i18n": "./shell/vendor.dhis2-i18n.js",
+        "@dhis2/ui": "./shell/vendor.dhis2-ui.js",
+        "@dhis2-apps/shell": "./shell/dhis2-apps-shell.js",
+        "@dhis2-apps/example": "./app/dhis2-apps-example.js",
+        "@dhis2-apps/app2-plugin": "./app2/dhis2-apps-app2-plugin.js"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@2.2.0/dist/import-map-overrides.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script>
+  <style>
+        .jsx-3962152106 {
+            height: 45px;
+        }
+
+        *, ::before, ::after {
+            box-sizing: inherit;
+            font-family: Roboto, sans-serif;
+        }
+  </style>
+  <!-- <link rel="stylesheet" href="./roboto.css"> -->
+</head>
+<body>
+  <script>
+    System.import('@dhis2-apps/shell') // pre-load the shell
+    System.import('single-spa').then(singleSpa => {
+        singleSpa.registerApplication(
+            'shell',
+            () => System.import('@dhis2-apps/shell'),
+            () => true
+        )
+
+        singleSpa.start()
+    })
+  </script>
+  <import-map-overrides-full dev-libs></import-map-overrides-full>
+</body>
+</html>

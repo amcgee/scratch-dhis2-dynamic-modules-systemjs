@@ -1,0 +1,22 @@
+{
+  "name": "dynamic-modules",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:app": "cd app && yarn start --https",
+    "start:app2": "cd app2 && yarn start --https",
+    "start:shell": "cd shell && yarn start --https",
+    "start:root": "cd root && npx serve .",
+    "start": "concurrently -n app,app2,shell,root -k 'yarn start:app' 'yarn start:app2' 'yarn start:shell' 'yarn start:root'",
+    "build:app": "cd app && rm -rf dist && yarn build",
+    "build:app2": "cd app2 && rm -rf dist && yarn build",
+    "build:shell": "cd shell && rm -rf dist && yarn build",
+    "build": "yarn build:app && yarn build:app2 && yarn build:shell && yarn clean && yarn copy",
+    "clean": "rm -rf www/*",
+    "copy": "cp -r app/dist www/app && cp -rf app2/dist www/app2 && cp -r shell/dist www/shell && cp -r root/* www"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
